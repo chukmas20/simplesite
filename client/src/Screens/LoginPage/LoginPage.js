@@ -1,41 +1,41 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap';
 import MainScreen from '../../components/MainScreen';
-import axios from "axios";
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import "./LoginPage.css";
 import Loading from '../../components/Loading';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import { login } from '../../actions/userActions';
+import { useHistory } from 'react-router';
 
 const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    //const [error, setError] = useState(false);
+   // const [loading, setLoading] = useState(false);
+    const  dispatch = useDispatch();
+    const history = useHistory();
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const {loading, error,userInfo} = userLogin;
+   
     
+    useEffect(() => {
+        if (userInfo) {
+          history.push("/mynotes");
+        }
+      }, [history, userInfo]);
+
     const submitHandler = async(e)=>{
         e.preventDefault();
-        try {
-            const config = {
-                headers:{
-                    "Content-type":"application/json"
-                }
-            }
-            setLoading(true);
-            const {data } = await axios.post("api/users/login", {
-                email,password,
-            },
-            config
-            );
-            console.log(data);
-            localStorage.setItem("userInfo", JSON.stringify(data));
-            setLoading(false);
-        } catch (error) {
-            setError(error.response.data.message);
-        }
+        dispatch(login(email,password));
     }
-
+    
     return (
         <MainScreen title="LOGIN">
             <div className="loginContainer">
+            {error &&  <ErrorMessage variant="danger">Invalid Username or password </ErrorMessage>}
               {loading && <Loading />}  
             <Form onSubmit={submitHandler}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -55,9 +55,6 @@ const LoginPage = () => {
                      value={password}
                      onChange={(e)=> setPassword(e.target.value)}
                       />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
                 </Form.Group>
                 <Button variant="primary" type="submit">
                     Submit

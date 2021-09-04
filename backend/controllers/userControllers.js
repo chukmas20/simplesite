@@ -51,7 +51,7 @@ const loginUser = asyncHandler(
             })
         }else{
             res.status(400).json("Invalid username or passsword");
-            //throw new Error("An Error Occurred");
+            //throw new Error("Invalid username or passsword");
         }
      
      }
