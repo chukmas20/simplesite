@@ -3,14 +3,14 @@ import { Accordion, Badge, Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import MainScreen from '../../components/MainScreen'
 import {useDispatch, useSelector} from "react-redux";
-import { listNotes } from '../../actions/notesActions';
+import { deleteNoteAction, listNotes } from '../../actions/notesActions';
 import Loading from '../../components/Loading';
 import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { useHistory } from 'react-router';
 
 
 
-const MyNotes = () => {
+const MyNotes = ({search}) => {
     const history = useHistory();
     const dispatch = useDispatch()
     const noteList = useSelector(state=> state.noteList);
@@ -19,11 +19,20 @@ const MyNotes = () => {
     const userLogin = useSelector(state=> state.userLogin)
     const {userInfo} = userLogin;
 
+    const noteCreate = useSelector((state) => state.noteCreate);
+    const { success: SuccessCreate } = noteCreate;
+
+    const noteUpdate = useSelector((state) => state.noteUpdate);
+    const { success:successUpdate } = noteUpdate;
+
+    const noteDelete = useSelector(state => state.noteDelete)
+    const {loading:loadingDelete, error:errorDelete, success:successDelete} = noteDelete;
+
 
 
     const deleteHandler =(id)=>{
         if(window.confirm("Are You Sure?")){
-
+          dispatch(deleteNoteAction(id))
         }
     };
 
@@ -33,7 +42,7 @@ const MyNotes = () => {
         if(!userInfo){
             history.push("/")
         }
-    }, [dispatch]);
+    }, [dispatch, SuccessCreate, history,userInfo, successUpdate, successDelete]);
     return (
         <div>
              <MainScreen title= {`Welcome ${userInfo.name}`}>
@@ -42,10 +51,16 @@ const MyNotes = () => {
                              Create New Note 
                             </Button>
                         </Link>
+                         {errorDelete && (
+                            <ErrorMessage variant="danger">{errorDelete} </ErrorMessage>  
+                         )}
+                         {loadingDelete && <Loading />}
                          {error && <ErrorMessage variant="danger">{error} </ErrorMessage>}
                          {loading &&  < Loading />}
                              {
-                                 notes?.reverse().map(note=>(
+                                 notes?.reverse().filter((filterNote)=>
+                                 filterNote.title.toLowerCase().includes(search.toLowerCase())
+                                 ).map(note=>(
                             <Accordion key={note._id}>
                                   <Card style={{margin:10}}>
                            <Card.Header style={{display:'flex'}}>

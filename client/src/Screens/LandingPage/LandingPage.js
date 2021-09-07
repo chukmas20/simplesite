@@ -18,7 +18,7 @@ const LandingPage = () => {
                   <div className = "intro-text">
                         <div>
                             <h1 className="title"> Welcome</h1>
-                            <p className="subtitle"> The safest App to take notes</p> 
+                            <p className="subtitle"> The best Way to take notes</p> 
                             <div className="buttonContainer">
                                 <Link to="/login">
                                   <Button size="lg" className="landingbutton " > Login</Button>
