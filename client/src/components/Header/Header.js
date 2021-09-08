@@ -3,6 +3,7 @@ import {Nav, NavDropdown, Navbar, FormControl, Form, Button, Container} from "re
 import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../actions/userActions';
+import "./Header.css"
 
 const Header = ({setSearch}) => {
 
@@ -21,7 +22,9 @@ const Header = ({setSearch}) => {
     <Container>
         <Navbar.Brand >
           <Link to="/">
-            Navbar scroll
+            <div className="headerName">
+              <span style={{padding:"10px"}}>N-NOTES APP </span>
+            </div>
           </Link>
           </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
