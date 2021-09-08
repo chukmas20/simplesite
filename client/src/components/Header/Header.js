@@ -36,18 +36,16 @@ const Header = ({setSearch}) => {
             onChange={(e)=> setSearch (e.target.value)}
         />
     </Form>
-         </Nav>
-     <Nav
-      
-    >
+        </Nav>
+    {userInfo ?  (<Nav>  
       <Nav.Link href="#action1" style={{fontWeight:"bold", fontSize:15,color:"white"}}>
         <Link to="mynotes">
            My Notes
          </Link>
         </Nav.Link>
       <Nav.Link href="#action2" style={{fontWeight:"bold", fontSize:15,color:"white"}}>Link</Nav.Link>
-      <NavDropdown title="My Notes"  style={{fontWeight:"bold", fontSize:18,color:"black"}} id="navbarScrollingDropdown" >
-        <NavDropdown.Item href="/">My Profile</NavDropdown.Item>
+      <NavDropdown title={userInfo?.name} style={{fontWeight:"bold", fontSize:18,color:"black"}} id="navbarScrollingDropdown" >
+        <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
         <NavDropdown.Item onClick={
            logoutHandler
         }>
@@ -55,7 +53,15 @@ const Header = ({setSearch}) => {
         </NavDropdown.Item>
         <NavDropdown.Divider />
       </NavDropdown>
-    </Nav>
+    </Nav> ): (
+       <Nav>
+          {" "}
+           <Nav.Link>
+                <Link to="/login" style={{fontWeight:"bold", color:"white"}}> Login </Link>
+           </Nav.Link>
+       </Nav>
+       )
+       }
   </Navbar.Collapse>
   </Container>
 </Navbar> 

@@ -152,3 +152,4 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
     });
   }
 };
+

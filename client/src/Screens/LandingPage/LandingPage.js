@@ -3,14 +3,14 @@ import { Button, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import "./LandingPage.css";
 
-const LandingPage = () => {
+const LandingPage = ({history}) => {
 
-    // useEffect(()=>{
-    //    const userInfo = localStorage.getItem("userInfo");
-    //    if(userInfo){
-    //        history.push("/mynotes");
-    //    }
-    // }, [history]);
+    useEffect(()=>{
+       const userInfo = localStorage.getItem("userInfo");
+       if(userInfo){
+           history.push("/mynotes");
+       }
+    }, [history]);
     return (
         <div className="main">
             <Container>
