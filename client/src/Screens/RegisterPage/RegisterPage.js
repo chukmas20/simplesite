@@ -3,7 +3,6 @@ import MainScreen from "../../components/MainScreen";
 import {useState, useEffect} from "react";
 import "./RegisterPage.css";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
-import axios from "axios";
 import {useHistory} from "react-router-dom";
 import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
