@@ -10,6 +10,7 @@ const getNotes =  asyncHandler(
       }
 );
 
+// create note
 const createNotes = asyncHandler (async(req, res)=>{
     const {title, content, category} = req.body;
  

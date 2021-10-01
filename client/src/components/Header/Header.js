@@ -46,7 +46,6 @@ const Header = ({setSearch}) => {
            My Notes
          </Link>
         </Nav.Link>
-      <Nav.Link href="#action2" style={{fontWeight:"bold", fontSize:15,color:"white"}}>Link</Nav.Link>
       <NavDropdown title={userInfo?.name} style={{fontWeight:"bold", fontSize:18,color:"black"}} id="navbarScrollingDropdown" >
         <NavDropdown.Item href="/profile">My Profile</NavDropdown.Item>
         <NavDropdown.Item onClick={

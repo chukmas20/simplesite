@@ -7,7 +7,7 @@ const router = express.Router();
 router.route("/").get(protect,getNotes);
 router.route("/create").post(protect, createNotes);
   router.route("/:id")
- .get(protect,getNotesById)
+ .get(getNotesById)
   .put(protect, updateNote)
   .delete(protect,deleteNote);
 

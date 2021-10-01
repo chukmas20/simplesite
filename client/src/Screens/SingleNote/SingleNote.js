@@ -38,7 +38,6 @@ function SingleNote({ match, history }) {
       setCategory(data.category);
       setDate(data.updatedAt);
     };
-
     fetching();
   }, [match.params.id, date]);
 
